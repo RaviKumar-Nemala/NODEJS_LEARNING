@@ -5,9 +5,9 @@ export const AppDataSource =  new DataSource(
     {
         host : process.env.DATABASE_HOST || 'localhost',
         port : Number(process.env.DATABASE_PORT ) || 3306,
-        username : process.env.DATABASE_USERNAME|| 'root',
+        username : process.env.DATABASE_USERNAME|| '',
         database : process.env.DATABASE_NAME || 'typeorm_learn',
-        password:  process.env.DATABASE_PASSWORD ||'thisandthatddosattacking',
+        password:  process.env.DATABASE_PASSWORD ||'',
         type :'mysql',
         migrations : [path.resolve(__dirname, "../migration/**/*{.ts,.js}")],
         entities : [path.resolve(__dirname , '../entities/**/*{.ts,.js}')],
