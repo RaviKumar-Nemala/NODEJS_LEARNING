@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style >
+        #video
+        {
+            position:absolute;
+            height : 90%;
+            width : 90%;
+            display : grid;
+            place-items:center
+        }
+
+    </style>
+</head>
+<body>
+    <video id = "video" data-dashjs-player  controls autoplay >
+        <source src = "./output.mpd" type = "application/dash+xml" />
+    </video>
+   <script src = "https://cdnjs.cloudflare.com/ajax/libs/dashjs/4.7.4/dash.all.min.js" ></script>
+</body>
+</html>
