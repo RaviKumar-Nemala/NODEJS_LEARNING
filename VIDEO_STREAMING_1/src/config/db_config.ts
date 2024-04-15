@@ -4,7 +4,7 @@ import  path  from 'path';
 export let AppDataSource : DataSource = new DataSource({
     type : 'mysql',
     username : 'root',
-    password:'thisandthatddosattacking',
+    password:'',
     database : 'video_streaming_check',
     host : 'localhost',
     port : 3306,
