@@ -14,15 +14,9 @@ import { send_request } from '../utils/send_request'
 import { AxiosHeaders } from "axios";
 import crypto from 'crypto';
 import { S3 } from "aws-sdk";
-const ACCESS_KEY =  "AKIAZI2LJDA5YEXY7MM6"
-const SECRET_KEY =  "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"
+const ACCESS_KEY =  ""
+const SECRET_KEY =  ""
 
-// const MUX_ACCESS_KEY = 'dccd77c0-c067-4b98-912d-3f326c2bf020';
-// const MUX_SECRET_KEY = 'WDGJNmiWuC+nKHWpSNa6Q+C3nlLn2PlvZl67Ld8cylAEuaKbvtjJeDF5bJiuZssFDKYX5EtVcb+';
-//PROD KEYS
-
-const MUX_ACCESS_KEY='d6af6535-fe6a-437d-b7f8-b3a676b558f0'
-const MUX_SECRET_KEY='WgMhmHkRmZEiPUejQC4Hs0TLhvhVXWTFbqJJa8jN+5inCkfyP85i9VLvt5bUqxIL9fMKXzHedIP'
 
 export const s3_client= new S3Client(
     {
