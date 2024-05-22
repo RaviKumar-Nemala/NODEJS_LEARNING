@@ -8,9 +8,6 @@ import ffmpegInstaller from '@ffmpeg-installer/ffmpeg'
 import util   from 'util';
 ffmpeg.setFfmpegPath(ffmpegInstaller.path)
 import path from 'path';
-const CLOUD_FRONT_END_URL = 'https://d16udxigumuzoj.cloudfront.net'
-const CLOUD_FRONT_KEY_PAIR_ID = 'K3C1F7Z09UQESY';
-const CLOUD_FRONT_DISTRIBUTION_ID = 'EVMIKI4WMFHP';
 
 const resolutions = [
     { width: 640, height: 360, bitrate: '750k' },
