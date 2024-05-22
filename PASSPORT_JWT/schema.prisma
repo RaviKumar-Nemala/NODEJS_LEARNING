@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model authorities {
+  role   String @default("USER")
+  userid Int    @unique
+}
+
+model session {
+  id        String   @id @db.VarChar(255)
+  sid       String   @unique(map: "sid") @db.VarChar(255)
+  data      String?  @map("_data") @db.Text
+  expiresAt DateTime @db.DateTime(0)
+}
+
+model user {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
+  user_course_mapper user_course_mapper[] 
+}
+
+model courses {
+  id  Int @id @default(autoincrement())
+  course_name  String @unique
+  course_video_mapper course_video_mapper []
+  user_course_mapper user_course_mapper[]
+}
+
+model videos {
+  id Int @id @default(autoincrement())
+  description String @db.Text
+  filename String 
+  size  Int  
+  mime_type String
+  content Bytes
+  course_video_mapper course_video_mapper[]
+}
+
+model course_video_mapper{
+  course_id Int 
+  video_id  Int 
+  courses  courses @relation(fields: [course_id] , references: [id])
+  videos  videos  @relation( fields: [video_id ] , references: [id])
+  @@id([course_id, video_id])
+}
+
+model user_course_mapper {
+   user_id Int 
+   course_id Int
+   courses courses @relation(fields : [course_id] ,  references : [ id ])
+   user  user  @relation( fields : [user_id ] , references : [ id ])
+  @@id([user_id , course_id])
+}
