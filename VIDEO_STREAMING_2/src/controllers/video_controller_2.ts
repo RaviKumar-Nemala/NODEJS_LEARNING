@@ -1,6 +1,5 @@
 import * as Aws from 'aws-sdk';
-const ACCESS_KEY =  "AKIAZI2LJDA5YEXY7MM6"
-const SECRET_KEY =  "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"
+
 import { createWriteStream , createReadStream } from 'fs';
 import  * as fs from 'fs';
 import path from 'path'
