@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+                #video
+        {
+            position:absolute;
+            height : 90%;
+            width : 90%;
+            display : grid;
+            place-items:center
+        }
+    </style>
+        <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+</head>
+
+<body>
+    <!-- <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script> -->
+    <!-- src = "http://localhost:3000/video/start_hls_stream/b3f9bb09-5499-468d-9563-f75b7c53328e/b3f9bb09-5499-468d-9563-f75b7c53328e.m3u8" -->
+    <video id = "video"  controls   playsinline >
+        <source  type = "application/x-mpegURL" 
+        src = "https://d16udxigumuzoj.cloudfront.net/videos/b3f9bb09-5499-468d-9563-f75b7c53328e/b3f9bb09-5499-468d-9563-f75b7c53328e.m3u8?Expires=1715854602&Key-Pair-Id=K3C1F7Z09UQESY&Signature=vVrNZYi91nxHI9zlczN~UeX46s7L9kiZqcpTd1W5fYSe3fDiAE55cvH9-2-cni43zLnzq9TyeJjzzcgw6e3jGs1Mz9hr41RVDS6m4m6-waq8Bvn1W9Czva6vjaOUFMDZVdOUQBfGCRPMctiiU9UiprJgiYjkDSQMbUfAanCBNsjRr3eypmF3cLIucPzUPO1W7vDx5~gYNNOac7gDN~nDwxTXV39YcDOHuz0pba7RhGYBy60clbqBlaiIv-UcXwmLoovIjIVOQZl82yqL-Hd8l-6O41I-Z4E72xHINzAen83vV5Vz0Vc0Z0fsfhc7lgJKOns8Of3OQQRhtoM9s386wg__" />
+    </video>
+
+<script   src="//cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+<!-- <script src  = "https://cdn.polyfill.io/v2/polyfill.min.js?features=es6,Array.prototype.includes,CustomEvent,Object.entries,Object.values,URL"></script> -->
+<!-- <script src = "https://unpkg.com/plyr@3"></script> -->
+<!-- <script src="https://cdn.rawgit.com/video-dev/hls.js/18bb552/dist/hls.min.js"></script> -->
+<script >
+    document.addEventListener( 'DOMContentLoaded', ()=>{
+    let video = document.querySelector('#video');
+    let source = document.querySelector ('source').src;
+    let default_options = {};
+
+  
+    if ( Hls.isSupported())
+    {
+        const hls = new Hls();
+    hls.loadSource(source);
+
+        hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+
+// Transform available levels into an array of integers (height values).
+const availableQualities = hls.levels.map((l) => l.height)
+
+defaultOptions.controls = ['play-large', // The large play button in the center
+  'restart', // Restart playback
+  'rewind', // Rewind by the seek time (default 10 seconds)
+  'play', // Play/pause playback
+  'fast-forward', // Fast forward by the seek time (default 10 seconds)
+  'progress', // The progress bar and scrubber for playback and buffering
+  'current-time', // The current time of playback
+  'duration', // The full duration of the media
+  'mute', // Toggle mute
+  'volume', // Volume control
+  'captions', // Toggle captions
+  'settings', // Settings menu
+  'pip', // Picture-in-picture (currently Safari only)
+  'airplay', // Airplay (currently Safari only)
+  'download', // Show a download button with a link to either the current source or a custom URL you specify in your options
+  'fullscreen']// Toggle fullscreen]
+// Add new qualities to option
+defaultOptions.quality = {
+  default: availableQualities[0],
+  options: availableQualities,
+  // this ensures Plyr to use Hls to update quality level
+  // Ref: https://github.com/sampotts/plyr/blob/master/src/js/html5.js#L77
+  forced: true,        
+  onChange: (e) => updateQuality(e),
+}
+    const player = new Plyr(video, defaultOptions)
+})
+
+hls.attachMedia(video);
+    window.hls = hls;
+
+    }
+})
+    function updateQuality(new_quality)
+    {
+       window.hls.levels.forEach( ( level , leve_idx)=>
+       {
+        if(level.height == new_quality)
+        {
+            window.hls.currentLevel = level_idx;
+        }
+       })
+    }
+</script>
+
+</body>
+</html>
